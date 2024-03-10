@@ -1,0 +1,71 @@
+.wrapper {
+  background-color: var(--black);
+  height: 750px;
+  margin-top: 100px;
+  color: var(--white);
+}
+.title {
+  display: flex;
+}
+.ssstutter {
+  padding-top: 66px;
+  padding-left: 42px;
+}
+.ssstutter-content {
+  width: 240px;
+  height: 120px;
+}
+.ssstutter-address {
+  padding-top: 66px;
+  padding-left: 42px;
+  margin-left: 111px;
+}
+.social-all,
+.ssstutter-policy {
+  padding-top: 66px;
+  padding-left: 42px;
+  margin-left: 111px;
+}
+.policy-content {
+  padding: 6px 0px;
+}
+.ssstutter-ecommerce {
+  margin-bottom: 16px;
+}
+.ssstutter-social-list {
+  display: flex;
+}
+.social-content {
+  margin-right: 20px;
+  font-size: 2.3rem;
+}
+.contact {
+  padding-top: 66px;
+  padding-left: 42px;
+  margin-bottom: 134px;
+}
+.ssstutter-title,
+.address-title,
+.policy-title,
+.ecommerce-title,
+.social-title,
+.contact-title {
+  margin-bottom: 20px;
+}
+.icon {
+  margin-right: 8px;
+}
+.company {
+  padding-top: 26px;
+  padding-left: 42px;
+  display: flex;
+  justify-content: space-between;
+}
+.img-logo-right {
+  width: 170px;
+  height: 62px;
+}
+.logo {
+  display: flex;
+  margin-right: 112px;
+}
