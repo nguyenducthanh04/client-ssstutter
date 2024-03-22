@@ -93,19 +93,7 @@ function Header() {
                 <span className={cx("color-title-prd")}>Số lượng</span>
               </div>
               <div className={cx("add-quantity")}>
-                <div>
-                  <p className={cx("quantity")} style={divStyle}>
-                    -
-                  </p>
-                </div>
-                <div>
-                  <p className={cx("quantity")} style={divStyle}>
-                    1
-                  </p>
-                </div>
-                <div>
-                  <p className={cx("quantity")}>+</p>
-                </div>
+                <input type="number" className={cx("quantity-plus")} />
               </div>
             </div>
             <div className={cx("color-prd")}>

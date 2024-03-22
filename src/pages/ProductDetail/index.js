@@ -135,9 +135,17 @@ function ProductDetail() {
           <div className={cx("btn-add-cart")}>
             <button className={cx("btn")}>Thêm vào giỏ hàng</button>
           </div>
+          <div className={cx("dcrt")}>
+            <span className={cx("title-dcrt")}>Mô tả</span>
+            <div>
+              <p className={cx("content-dcrt")}>
+                Áo Sơ Mi Caro Nam MANDO Form Rộng Dài Tay Kiểu Dáng Basic Unisex
+                Thời Trang Hàn Quốc SMD111
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <hr></hr>
       <div className={cx("relate-to")}>
         <h2 className={cx("title-relate")}>CÓ THỂ BẠN SẼ THÍCH</h2>
         <Slide>

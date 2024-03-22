@@ -8,6 +8,7 @@
   justify-content: space-between;
   position: fixed;
   z-index: 200;
+  border-bottom: 1px solid #ccc;
 }
 .header-title {
   font-size: 4rem;
@@ -113,4 +114,8 @@
   height: 40px;
   color: var(--white);
   background-color: var(--black);
+}
+.quantity-plus {
+  width: 40px;
+  height: 20px;
 }
