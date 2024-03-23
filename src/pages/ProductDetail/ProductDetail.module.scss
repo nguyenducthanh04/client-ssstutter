@@ -34,7 +34,7 @@
   padding: 0px 2px;
 }
 .size-link {
-  margin-left: 233px;
+  margin-left: 320px;
   border-bottom: 1px solid black;
   cursor: pointer;
 }
@@ -50,6 +50,7 @@
   width: 526px;
   height: 40px;
   cursor: pointer;
+  font-size: 1.6rem;
   background-color: black;
   color: var(--white);
 }
@@ -86,6 +87,14 @@
 .content-dcrt {
   font-weight: 200;
   margin-top: 12px;
+}
+.btn-size {
+  padding: 10px 15px;
+  // background-color: #ccc;
+  margin-left: 10px;
+  color: #000;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 .button {
   border: none;

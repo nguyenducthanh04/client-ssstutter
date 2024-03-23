@@ -133,16 +133,18 @@ function ProductDetail() {
                 </button>
               );
             })}
-            <div className={cx("selected-size")}>
-              {selectedSize
-                ? `Size đã chọn: ${
-                    sizeByColor.sizes?.find((s) => s.id === selectedSize).size
-                  }`
-                : "Vui lòng chọn size"}
+            <div style={{ display: "flex" }}>
+              <div className={cx("selected-size")}>
+                {selectedSize
+                  ? `Size đã chọn: ${
+                      sizeByColor.sizes?.find((s) => s.id === selectedSize).size
+                    }`
+                  : "Vui lòng chọn size"}
+              </div>
+              <label className={cx("size")}>
+                <span className={cx("size-link")}>Bảng size</span>
+              </label>
             </div>
-            <label className={cx("size")}>
-              <span className={cx("size-link")}>Bảng size</span>
-            </label>
           </div>
           <div className={cx("btn-add-cart")}>
             <button className={cx("btn")}>Thêm vào giỏ hàng</button>
