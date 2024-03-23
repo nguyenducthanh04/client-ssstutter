@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Home.module.scss";
 import "react-slideshow-image/dist/styles.css";
@@ -19,14 +20,14 @@ function Home() {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:3005/products/api/getProductNews"
+        "http://127.0.0.1:3005/products/api/get-productNews"
       );
       setProducts(response.data);
-      console.log("thanhit", response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
   };
+  console.log("thanh2:", products);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("slide-parent")}>
@@ -72,11 +73,16 @@ function Home() {
         <div className={cx("news-title")}>
           <h2 className={cx("title")}>What's NEW?</h2>
         </div>
-        <Slide>
-          <div className="each-slide-effect">
-            <div className={cx("slide-product-item")}>
-              {products.map((product) => {
-                return (
+        {/* <Slide> */}
+        {/* <div className="each-slide-effect"> */}
+        <div className={cx("horizontal-scroll-container")}>
+          <div className={cx("slide-product-item")}>
+            {products.map((product) => {
+              return (
+                <Link
+                  className={cx("link-product")}
+                  to={`/product-detail/${product.id}`}
+                >
                   <div className={cx("product")} key={product.id}>
                     <img
                       className={cx("image-product")}
@@ -88,60 +94,12 @@ function Home() {
                     </div>
                     <p className={cx("color-product")}>2 màu</p>
                   </div>
-                );
-              })}
-            </div>
+                </Link>
+              );
+            })}
           </div>
-          ;
-          {/* <div className="each-slide-effect">
-            <div className={cx("slide-product-item")}>
-              <div className={cx("product")}>
-                <img
-                  className={cx("image-product")}
-                  src="https://cdn.ssstutter.com/products/66z6ao28eNQDG839/012024/1704388745338.webp"
-                ></img>
-                <div className={cx("info-product")}>
-                  <p className={cx("name-product")}>SƠ MI</p>
-                  <p className={cx("price-product")}>499,000</p>
-                </div>
-                <p className={cx("color-product")}>2 màu</p>
-              </div>
-              <div className={cx("product")}>
-                <img
-                  className={cx("image-product")}
-                  src="https://cdn.ssstutter.com/products/66z6ao28eNQDG839/022024/1708332707937.webp"
-                ></img>
-                <div className={cx("info-product")}>
-                  <p className={cx("name-product")}>SƠ MI</p>
-                  <p className={cx("price-product")}>499,000</p>
-                </div>
-                <p className={cx("color-product")}>2 màu</p>
-              </div>
-              <div className={cx("product")}>
-                <img
-                  className={cx("image-product")}
-                  src="https://cdn.ssstutter.com/products/66z6ao28eNQDG839/022024/1708332707937.webp"
-                ></img>
-                <div className={cx("info-product")}>
-                  <p className={cx("name-product")}>SƠ MI</p>
-                  <p className={cx("price-product")}>499,000</p>
-                </div>
-                <p className={cx("color-product")}>2 màu</p>
-              </div>
-              <div className={cx("product")}>
-                <img
-                  className={cx("image-product")}
-                  src="https://cdn.ssstutter.com/products/66z6ao28eNQDG839/022024/1708332707937.webp"
-                ></img>
-                <div className={cx("info-product")}>
-                  <p className={cx("name-product")}>SƠ MI</p>
-                  <p className={cx("price-product")}>499,000</p>
-                </div>
-                <p className={cx("color-product")}>2 màu</p>
-              </div>
-            </div>
-          </div> */}
-        </Slide>
+        </div>
+        {/* </div> */};{/* </Slide> */}
       </div>
       <div className={cx("promotions")}>
         <div className={cx("promotion-title")}>

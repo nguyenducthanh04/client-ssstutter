@@ -3,18 +3,49 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./ProductDetail.module.scss";
 import "react-slideshow-image/dist/styles.css";
 import { Slide } from "react-slideshow-image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 const cx = classNames.bind(styles);
 function ProductDetail() {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const { id } = useParams();
+  const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [productDetail, setProductDetail] = useState([]);
+  const [sizeByColor, setSizeByColor] = useState([]);
+  const [selected, setSelected] = useState(false);
+  useEffect(() => {
+    if (id) {
+      getProductDetail();
+    }
+  }, [id]);
+  const getProductDetail = async () => {
+    const response = await axios.get(
+      `http://127.0.0.1:3005/products/api/get-product-detail/${id}`
+    );
+    if (response.data) {
+      setProductDetail(response.data);
+    }
+  };
+  const handleSelectColor = async (colorId) => {
+    setSelected(true);
+    setSelectedColor(colorId);
+    console.log("colorId:", colorId);
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:3005/products/api/get-size-color/${colorId}`
+      );
+      setSizeByColor(response.data);
+      // console.log("data-size:", sizeByColor);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const handleSelectSize = (sizeId) => {
+    setSelectedSize(sizeId);
+  };
 
-  const handleCheckboxChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-  const handleCheckboxSize = (event) => {
-    setSelectedSize(event.target.value);
-  };
+  console.log("ok", sizeByColor.sizes);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("image-product-detail")}>
@@ -42,7 +73,7 @@ function ProductDetail() {
           <div className={cx("slide-image-item")}>
             <img
               className={cx("image-slide")}
-              src="https://cdn.ssstutter.com/products/66z6ao28eNQDG839/012024/1704390173985.jpeg"
+              src={`http://127.0.0.1:3005/${productDetail?.productImage?.filePath}`}
             ></img>
           </div>
           <div className={cx("slide-image-item")}>
@@ -60,74 +91,55 @@ function ProductDetail() {
         </div>
         <div className={cx("description")}>
           <div>
-            <h2 className={cx("title-name")}>BOTTEGA STRAIGHT TROUSERS</h2>
+            <h1 className={cx("title-name")}>{productDetail.name}</h1>
           </div>
           <div>
-            <h3 className={cx("price")}>449,000</h3>
-          </div>
-          <div>
-            <div>
-              <span className={cx("color-title")}>Chọn màu</span>
-            </div>
-            <label className={cx("option")}>
-              <input
-                type="checkbox"
-                value="Option 1"
-                checked={selectedOption === "Option 1"}
-                onChange={handleCheckboxChange}
-              />
-              <span className={cx("color")}>Màu nâu</span>
-            </label>
-            <label className={cx("option")}>
-              <input
-                type="checkbox"
-                value="Option 2"
-                checked={selectedOption === "Option 2"}
-                onChange={handleCheckboxChange}
-              />
-              <span className={cx("color")}>Màu đen</span>
-            </label>
+            <h1 className={cx("price")}>{productDetail.price}</h1>
           </div>
           <div>
             <div>
-              <span className={cx("size-title")}>Chọn size</span>
+              <span className={cx("color-title")}>Chọn màu:</span>
             </div>
-            <label className={cx("option")}>
-              <input
-                type="checkbox"
-                value="Size 0"
-                checked={selectedSize === "Size 0"}
-                onChange={handleCheckboxSize}
-              />
-              <span className={cx("color")}>0</span>
-            </label>
-            <label className={cx("option")}>
-              <input
-                type="checkbox"
-                value="Size 1"
-                checked={selectedSize === "Size 1"}
-                onChange={handleCheckboxSize}
-              />
-              <span className={cx("color")}>1</span>
-            </label>
-            <label className={cx("option")}>
-              <input
-                type="checkbox"
-                value="Size 2"
-                checked={selectedSize === "Size 2"}
-                onChange={handleCheckboxSize}
-              />
-              <span className={cx("color")}>2</span>
-            </label>
-            <label className={cx("option")}>
-              <input
-                type="checkbox"
-                value="Size 3"
-                checked={selectedSize === "Size 3"}
-                onChange={handleCheckboxSize}
-              />
-              <span className={cx("color")}>3</span>
-            </label>
+            {productDetail.colors?.map((color) => (
+              <button
+                key={color.id}
+                className={cx("button", { ["active"]: selected })}
+                onClick={() => handleSelectColor(color.id)}
+              >
+                {color.color}
+              </button>
+            ))}
+            <div className={cx("selected-color")}>
+              {selectedColor
+                ? `Màu đã chọn: ${
+                    productDetail.colors?.find((c) => c.id === selectedColor)
+                      .color
+                  }`
+                : "Vui lòng chọn màu"}
+            </div>
+          </div>
+          <div>
+            <div>
+              <span className={cx("size-title")}>Chọn size:</span>
+            </div>
+            {sizeByColor.sizes?.map((size) => {
+              return (
+                <button
+                  key={size.id}
+                  className={cx("btn-size", { ["active"]: selected })}
+                  onClick={() => handleSelectSize(size.id)}
+                >
+                  {size.size}
+                </button>
+              );
+            })}
+            <div className={cx("selected-size")}>
+              {selectedSize
+                ? `Size đã chọn: ${
+                    sizeByColor.sizes?.find((s) => s.id === selectedSize).size
+                  }`
+                : "Vui lòng chọn size"}
+            </div>
             <label className={cx("size")}>
               <span className={cx("size-link")}>Bảng size</span>
             </label>
@@ -138,10 +150,7 @@ function ProductDetail() {
           <div className={cx("dcrt")}>
             <span className={cx("title-dcrt")}>Mô tả</span>
             <div>
-              <p className={cx("content-dcrt")}>
-                Áo Sơ Mi Caro Nam MANDO Form Rộng Dài Tay Kiểu Dáng Basic Unisex
-                Thời Trang Hàn Quốc SMD111
-              </p>
+              <p className={cx("content-dcrt")}>{productDetail.description}</p>
             </div>
           </div>
         </div>

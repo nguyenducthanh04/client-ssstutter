@@ -53,7 +53,7 @@
   justify-content: space-between;
 }
 .product {
-  padding: 0px 20px;
+  padding: 0px 23px;
 }
 .name-product {
   font-size: 2rem;
@@ -107,6 +107,10 @@
   position: relative;
   display: inline-block;
 }
+.link-product {
+  color: var(--black);
+  text-decoration: none;
+}
 .text-overlay {
   position: absolute;
   top: 50%;
@@ -127,4 +131,9 @@
   font-size: 16px; /* Cỡ chữ nội dung */
   color: #666; /* Màu chữ */
   margin: 0; /* Xóa khoảng cách mặc định của các phần tử */
+}
+.horizontal-scroll-container {
+  // width: 300px; /* Set the width of the container */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  flex-wrap: nowrap;
 }
